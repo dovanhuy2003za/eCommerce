@@ -14,13 +14,8 @@ require('./dbs/init.mongodb')
 const {countConnect,checkOverload}=require('./helpers/check.connect')
 checkOverload()
 //init routes
-app.get('/',(req,res,next)=>{
-    const strCompress='hello'
-    return res.status(200).json({
-        message:"welcome!!",
-        metadata:strCompress.repeat(100000)
-    })
-})
+app.use(require('./routes'))
+
 //handling error
 
 module.exports=app
