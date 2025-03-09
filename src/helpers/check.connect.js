@@ -12,8 +12,8 @@ const checkOverload=()=>{
         const numCores=os.cpus().length;
         const totalMemory=process.memoryUsage().rss;
         const maxConnection=numCores*3;
-        console.log(`numCores:: ${numCores}`)
-        console.log(`totalMemory:: ${totalMemory/1024/1024}MB`)
+        // console.log(`numCores:: ${numCores}`)
+        // console.log(`totalMemory:: ${totalMemory/1024/1024}MB`)
         if (numConnection>maxConnection) {
             console.log('Overload connections')
         }

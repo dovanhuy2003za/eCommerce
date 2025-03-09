@@ -1,0 +1,6 @@
+@url_dev=http://localhost:3052/v1/api/
+
+### signup
+PORT:{{url_dev}}/shop/signup
+
+PORT:http://localhost:3052/v1/api/shop/signup
