@@ -1,6 +1,11 @@
 @url_dev=http://localhost:3052/v1/api/
 
 ### signup
-PORT:{{url_dev}}/shop/signup
+POST {{url_dev}}/shop/signup
+Content-Type: application/json
 
-PORT:http://localhost:3052/v1/api/shop/signup
+{
+    "name": "Shop Huy",
+    "email": "dovanhuy2003za@gmail.com",
+    "password": "123456"
+}
