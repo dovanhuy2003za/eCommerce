@@ -1,13 +1,10 @@
 const exprees = require('express');
 const AccessController = require('../../controllers/access.controllers');
+const { asyncHandler } = require('../../auth/checkAuth');
 const router = exprees.Router();
 
 //signup
-router.post('/shop/signup',AccessController.signUp)
-//signin
-// router.post('/signin',(req,res,next)=>{
-//     return res.status(200).json({
-//         message:"signin!!",})
-// })
+router.post('/shop/signup',asyncHandler(AccessController.signUp));
+
 
 module.exports = router;

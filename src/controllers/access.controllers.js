@@ -1,8 +1,9 @@
 const AccessService = require("../services/access.service");
+const { CREATED } = require("../core/success.response");
 
 class AccessController {
     signUp = async (req, res, next) => {
-        try {
+      
             console.log(`[P]::signUp::`, req.body);
 
             // Kiểm tra nếu dữ liệu đầu vào bị thiếu
@@ -12,13 +13,13 @@ class AccessController {
             }
 
             // Gọi service để xử lý đăng ký
-            const result = await AccessService.signup(req.body);
-
-            return res.status(201).json(result);
-        } catch (error) {
-            console.error(`[E]::signUp::`, error);
-            return res.status(500).json({ message: "Internal Server Error" });
-        }
+            new CREATED({
+                message: "Đăng ký thành công",
+                metadata: await AccessService.signup(req.body),
+                options:{
+                    limit:10,
+                }
+            }).send(res);
     };
 }
 

@@ -5,6 +5,7 @@ const KeyTokenService = require("./keyToken.service");
 const { createTokenPair } = require("../auth/authUtils");
 const { get } = require("lodash");
 const { getInfoData } = require("../utils");
+const { BadRequestError,ConflictRequestError } = require("../core/error.response");
 
 const RoleShop = {
     SHOP: 'SHOP',
@@ -16,14 +17,11 @@ const RoleShop = {
 class AccessService {
     async signup(data) {
         const { name, email, password } = data;
-        try {
+            
             // Step 1: Kiểm tra email đã tồn tại chưa
             const holderShop = await shopModel.findOne({ email }).lean();
             if (holderShop) {
-                return {
-                    code: 400,
-                    message: 'Shop already registered',
-                };
+               throw new BadRequestError('Error: Shop already exists');
             }
 
             // Step 2: Hash mật khẩu
@@ -38,10 +36,8 @@ class AccessService {
             });
 
             if (!newShop) {
-                return {
-                    code: 500,
-                    message: "Failed to create shop",
-                };
+                throw new BadRequestError('Error: Failed to create shop');
+                
             }
 
             // Step 4: Tạo cặp khóa RSA
@@ -60,10 +56,8 @@ class AccessService {
             });
 
             if (!savedKey) {
-                return {
-                    code: 500,
-                    message: 'Error saving public key',
-                };
+                throw new BadRequestError('Error: Error saving public key');
+                
             }
 
             // Step 5: Tạo JWT token
@@ -83,14 +77,7 @@ class AccessService {
                 }
             };
 
-        } catch (error) {
-            console.error("Signup Error:", error);
-            return {
-                code: 500,
-                message: error.message,
-                status: 'error'
-            };
-        }
+       
     }
 }
 
